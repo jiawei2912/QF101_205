@@ -4,7 +4,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets, uic
 
 from PyUI import MainUI, LandingPageButton
 import AppModules
-from AppModules import ExampleModule, SimpleInterest, CompoundInterest
 
 class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
@@ -13,6 +12,22 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.setupUi(self)
         self._setUpButtonCallbacks()
         self._loadAppModules()
+
+        # Jank ass min resizing
+        largest_lpp_width = 0
+        for lppButtonIdx in range(self.ui.landingPageVLayout.count()):
+            lppButton:LandingPagePushButton = self.ui.landingPageVLayout.itemAt(lppButtonIdx).widget()
+            largest_lpp_width = max(largest_lpp_width, lppButton.ui.appButton1.width())
+        for lppButtonIdx in range(self.ui.landingPageVLayout.count()):
+            lppButton:LandingPagePushButton = self.ui.landingPageVLayout.itemAt(lppButtonIdx).widget()
+            lppButton.ui.appButton1.resize(largest_lpp_width,lppButton.ui.appButton1.height())
+        largest_lpp_width = int(largest_lpp_width*1.18)
+        widgetParent = self.ui.landingPageVLayout.parent()
+        while widgetParent != None:
+            print(widgetParent.objectName())
+            widgetParent.setMinimumWidth(largest_lpp_width)
+            widgetParent = widgetParent.parent()
+        
 
     def _setUpButtonCallbacks(self):
         self.ui.backButton.clicked.connect(lambda : self.navigateTo(0))
@@ -33,14 +48,14 @@ class MainWindow(QtWidgets.QMainWindow):
             LandingPagePushButton(self, moduleWidget.title, i+1)
 
     # Old (can delete if the method above does not cause any problems)
-    def _loadAppModules_OLD(self):
-        moduleWidgets = []
-        moduleWidgets.append(ExampleModule.ExampleModule())
-        moduleWidgets.append(SimpleInterest.SimpleInterestCalculator())
-        moduleWidgets.append(CompoundInterest.CompoundInterestCalculator())
-        for i, moduleWidget in enumerate(moduleWidgets):
-            self.ui.bodyStackedWidget.addWidget(moduleWidget)
-            LandingPagePushButton(self, moduleWidget.title, i+1)
+    # def _loadAppModules_OLD(self):
+    #     moduleWidgets = []
+    #     moduleWidgets.append(ExampleModule.ExampleModule())
+    #     moduleWidgets.append(SimpleInterest.SimpleInterestCalculator())
+    #     moduleWidgets.append(CompoundInterest.CompoundInterestCalculator())
+    #     for i, moduleWidget in enumerate(moduleWidgets):
+    #         self.ui.bodyStackedWidget.addWidget(moduleWidget)
+    #         LandingPagePushButton(self, moduleWidget.title, i+1)
 
     def navigateTo(self, stackedWidgetIndex:int, newHeaderLabel:str = "Module"):
         self.ui.bodyStackedWidget.setCurrentIndex(stackedWidgetIndex)
@@ -58,15 +73,17 @@ class LandingPagePushButton(QtWidgets.QWidget):
         self.ui = LandingPageButton.Ui_LandingPageButton()
         self.ui.setupUi(self)
         self.ui.appButton1.setText(appName)
+        self.ui.appButton1.adjustSize()
         self.ui.appButton1.clicked.connect(lambda : mainWindow.navigateTo(appIndex, appName))
 
 
 def main():
     qApp = QtWidgets.QApplication(sys.argv)
     qWin = MainWindow()
+    qWin.adjustSize()
     qWin.show()
     sys.exit(qApp.exec_())
-    pass
+    
 
 if __name__ == '__main__':
     main()
