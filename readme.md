@@ -16,6 +16,7 @@ python -m PyQt5.uic.pyuic -x [FILENAME].ui -o [FILENAME].py
 
 python -m PyQt5.uic.pyuic -x Project/UIFiles/MainUI.ui -o Project/PyUI/MainUI.py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/LandingPageButton.ui -o Project/PyUI/LandingPageButton.py
+python -m PyQt5.uic.pyuic -x Project/UIFiles/AppPageUI.ui -o Project/PyUI/AppPageUI.py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/AppPageUI_SimpleInterest.ui -o Project/PyUI/AppPageUI_SimpleInterest.py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/AppPageUI_CompoundInterest.ui -o Project/PyUI/AppPageUI_CompoundInterest.py
 
