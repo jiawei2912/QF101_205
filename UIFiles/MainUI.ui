@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="sizePolicy">
-   <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
@@ -31,7 +31,7 @@
    </font>
   </property>
   <property name="windowTitle">
-   <string>Some Finance App</string>
+   <string>Learning Cryptopgrahy</string>
   </property>
   <property name="windowOpacity">
    <double>4.000000000000000</double>

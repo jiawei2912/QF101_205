@@ -16,10 +16,10 @@ python -m PyQt5.uic.pyuic -x [FILENAME].ui -o [FILENAME].py
 
 python -m PyQt5.uic.pyuic -x Project/UIFiles/MainUI.ui -o Project/PyUI/MainUI.py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/LandingPageButton.ui -o Project/PyUI/LandingPageButton.py
-python -m PyQt5.uic.pyuic -x Project/UIFiles/AppPageUI.ui -o Project/PyUI/AppPageUI.py
-python -m PyQt5.uic.pyuic -x Project/UIFiles/AppPageUI_SimpleInterest.ui -o Project/PyUI/AppPageUI_SimpleInterest.py
-python -m PyQt5.uic.pyuic -x Project/UIFiles/AppPageUI_CompoundInterest.ui -o Project/PyUI/AppPageUI_CompoundInterest.py
-
+python -m PyQt5.uic.pyuic -x Project/UIFiles/CaesarCipherUI.ui -o Project/PyUI/CaesarCipherUI.py
+python -m PyQt5.uic.pyuic -x Project/UIFiles/HomophonicSubstitutionCipherUI.ui -o Project/PyUI/HomophonicSubstitutionCipherUI.py
+python -m PyQt5.uic.pyuic -x Project/UIFiles/VigenereCipherUI.ui -o Project/PyUI/VigenereCipherUI.py
+python -m PyQt5.uic.pyuic -x Project/UIFiles/MorseCodeUI.ui -o Project/PyUI/MorseCodeUI.py
 ```
 
 ## 4) Steps to add a module
@@ -31,3 +31,16 @@ python -m PyQt5.uic.pyuic -x Project/UIFiles/AppPageUI_CompoundInterest.ui -o Pr
 6) Modify _resetButtonClickedCallback(self) if necessary.
 7) Import the new module in main.py
 8) Add a instance of the new module to the moduleWidgets list in _loadAppModules(self) 
+
+
+## Idea - Applications in Cryptography
+1) Caesar Cipher
+--> Requires a shift, alphabet, and input
+--> Has a single output
+2) Homophonic Substition Cipher
+--> Need inputs for inputs
+3) Vigenere Cipher
+4) Morse Code
+5) XOR Encryption
+6) Timing Side Channel Demo?
+7) Base 64 Encoder and Decoder

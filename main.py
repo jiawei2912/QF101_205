@@ -49,11 +49,12 @@ class MainWindow(QtWidgets.QMainWindow):
             classes = inspect.getmembers(sub_module, inspect.isclass)
             classes = [cls[1] for cls in classes]
             moduleWidgetClasses.extend(list(filter(lambda cls: issubclass(cls, QtWidgets.QWidget), classes)))
+        moduleWidgetClasses.sort(key=lambda moduleWidgetClass:moduleWidgetClass.order)
         for i, moduleWidgetClass in enumerate(moduleWidgetClasses):
             moduleWidget = moduleWidgetClass()
             self.ui.bodyStackedWidget.addWidget(moduleWidget)
             LandingPagePushButton(self, moduleWidget.title, i+1)
-            print(moduleWidget.title, 'loaded')
+            print(moduleWidgetClass.title, 'loaded')
 
     def navigateTo(self, stackedWidgetIndex:int, newHeaderLabel:str = "Module"):
         self.ui.bodyStackedWidget.setCurrentIndex(stackedWidgetIndex)
