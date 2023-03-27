@@ -73,7 +73,7 @@ class MorseCodeModule(QtWidgets.QWidget):
         for char in plain_text:
             if ord(char) >= 97 and ord(char) < 97+26:
                 cipher_text.append(MorseCodeModule.ALPHABET_MORSE_CODE[ord(char)-97])
-            elif ord(char) > 48 and ord(char) < 48+26:
+            elif ord(char) >= 48 and ord(char) < 48+10:
                 cipher_text.append(MorseCodeModule.NUMBER_MORSE_CODE[ord(char)-48])
             elif char == ' ':
                 cipher_text.append(' / ')

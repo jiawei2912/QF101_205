@@ -82,12 +82,12 @@ class RSAToyEncryptionModule(QtWidgets.QWidget):
     def _cipher(self, mode=0):
         # Input Validation
         inputs = [self.ui.input_n_1.text(), self.ui.input_e.text(), self.ui.input_d.text()]
-        errText = "Error. Please provide integers only for n and e."
+        errText = "Error. Please provide integers for n and e."
         if mode == 0: #encrypt
             inputs.pop(2)
         elif mode == 1: #decrypt
             inputs.pop(1)
-            errText = "Error. Please provide integers only for n and d."
+            errText = "Error. Please provide integers for n and d."
         for input in inputs:
             try:
                 if int(input) != float(input):
