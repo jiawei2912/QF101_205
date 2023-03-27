@@ -20,6 +20,9 @@ python -m PyQt5.uic.pyuic -x Project/UIFiles/CaesarCipherUI.ui -o Project/PyUI/C
 python -m PyQt5.uic.pyuic -x Project/UIFiles/HomophonicSubstitutionCipherUI.ui -o Project/PyUI/HomophonicSubstitutionCipherUI.py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/VigenereCipherUI.ui -o Project/PyUI/VigenereCipherUI.py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/MorseCodeUI.ui -o Project/PyUI/MorseCodeUI.py
+python -m PyQt5.uic.pyuic -x Project/UIFiles/AffineCipherUI.ui -o Project/PyUI/AffineCipherUI.py
+python -m PyQt5.uic.pyuic -x Project/UIFiles/XOREncryptionUI.ui -o Project/PyUI/XOREncryptionUI.py
+python -m PyQt5.uic.pyuic -x Project/UIFiles/RSAToyEncryptionUI.ui -o Project/PyUI/RSAToyEncryptionUI.py
 ```
 
 ## 4) Steps to add a module

@@ -9,7 +9,7 @@ from PyUI import MorseCodeUI
 #   self.order: ordering priority; lower numbers will be displayed higher up
 class MorseCodeModule(QtWidgets.QWidget):
     title:str = "Morse Code"
-    order:int = 40
+    order:int = 50
     def __init__(self) -> None:
         super().__init__()
         self.ui = MorseCodeUI.Ui_ModulePage()
