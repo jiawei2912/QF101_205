@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Project/UIFiles/HomophonicSubstitutionCipherUI.ui'
+# Form implementation generated from reading ui file 'Project/UIFiles/MonoalphabeticSubstitutionCipherUI.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ModulePage(object):
     def setupUi(self, ModulePage):
         ModulePage.setObjectName("ModulePage")
-        ModulePage.resize(300, 450)
+        ModulePage.resize(307, 450)
         self.verticalLayout = QtWidgets.QVBoxLayout(ModulePage)
         self.verticalLayout.setContentsMargins(6, 2, 6, 2)
         self.verticalLayout.setSpacing(6)

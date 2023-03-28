@@ -2,17 +2,17 @@ from __future__ import annotations
 from typing import List
 from PyQt5 import QtWidgets
 
-from PyUI import HomophonicSubstitutionCipherUI
+from PyUI import MonoalphabeticSubstitutionCipherUI
 
 # Each AppModule needs to have:
 #   self.title: display name of the module
 #   self.order: ordering priority; lower numbers will be displayed higher up
-class HomophonicSubstitutionCipherModule(QtWidgets.QWidget):
-    title:str = "Homophonic Substitution"
+class MonoalphabeticSubstitutionCipherModule(QtWidgets.QWidget):
+    title:str = "Monoalphabetic Substitution"
     order:int = 20
     def __init__(self) -> None:
         super().__init__()
-        self.ui = HomophonicSubstitutionCipherUI.Ui_ModulePage()
+        self.ui = MonoalphabeticSubstitutionCipherUI.Ui_ModulePage()
         self.ui.setupUi(self)
         self._setUpButtonCallbacks()
         self._resetButtonClickedCallback()
