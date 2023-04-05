@@ -5,6 +5,10 @@ import random
 from PyUI import RSAToyEncryptionUI
 from math import gcd
 
+# Todo: 1) Remove the use of the Class and the GUI
+#       2) You can use functions
+#       3) Simplify this into a standalone file
+
 # <><> Utility Function <><>
 def _isPrime(n):
     if n == 2 or n == 3:

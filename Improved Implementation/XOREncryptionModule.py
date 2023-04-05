@@ -3,6 +3,10 @@ from typing import List
 from PyQt5 import QtWidgets
 from PyUI import XOREncryptionUI
 
+# Todo: 1) Create a heavily simplified version of this module 
+#       2) This implementation should have a 'problem' that is resolved
+#           by the 'Improved Implementation'
+
 # Each AppModule needs to have:
 #   title: display name of the module
 #   order: ordering priority; lower numbers will be displayed higher up

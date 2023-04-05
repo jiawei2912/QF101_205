@@ -4,6 +4,10 @@ from PyQt5 import QtWidgets
 
 from PyUI import MorseCodeUI
 
+# Todo: 1) Remove the use of the Class and the GUI
+#       2) You can use functions
+#       3) Simplify this into a standalone file
+
 # Each AppModule needs to have:
 #   self.title: display name of the module
 #   self.order: ordering priority; lower numbers will be displayed higher up

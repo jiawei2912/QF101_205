@@ -9,6 +9,7 @@ class ExampleModule(QtWidgets.QWidget):
     def __init__(self) -> None:
         super().__init__()
         self.title:str = "Example Module"
+        self.order:int = 0
         self.ui = AppPageUI.Ui_ModulePage()
         self.ui.setupUi(self)
         self._setUpButtonCallbacks()

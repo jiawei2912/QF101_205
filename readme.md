@@ -17,7 +17,7 @@ python -m PyQt5.uic.pyuic -x [FILENAME].ui -o [FILENAME].py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/MainUI.ui -o Project/PyUI/MainUI.py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/LandingPageButton.ui -o Project/PyUI/LandingPageButton.py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/CaesarCipherUI.ui -o Project/PyUI/CaesarCipherUI.py
-python -m PyQt5.uic.pyuic -x Project/UIFiles/HomophonicSubstitutionCipherUI.ui -o Project/PyUI/HomophonicSubstitutionCipherUI.py
+python -m PyQt5.uic.pyuic -x Project/UIFiles/MonoalphabeticSubstitutionCipherUI.ui -o Project/PyUI/MonoalphabeticSubstitutionCipherUI.py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/VigenereCipherUI.ui -o Project/PyUI/VigenereCipherUI.py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/MorseCodeUI.ui -o Project/PyUI/MorseCodeUI.py
 python -m PyQt5.uic.pyuic -x Project/UIFiles/AffineCipherUI.ui -o Project/PyUI/AffineCipherUI.py
