@@ -1,18 +1,6 @@
 from typing import List
 import string
 
-# Todo: 1) Remove the use of the Class and the GUI
-#       2) You can use functions
-#       3) Simplify this into a standalone file
-
-# Each AppModule needs to have:
-#   self.title: display name of the module
-#   self.order: ordering priority; lower numbers will be displayed higher up
-
-    # Todo: 1) Make a CLI copy of this in 'Improved Implementation' that 'teaches' 2D lists
-    #       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of a 2D list
-
-    # 0 for encode, 1 for decode
 def cipher(inputText:str, alphabet:str, key:str, mode=0):
     # Input Validation
     if not len(alphabet) > 0:
@@ -62,6 +50,4 @@ def cipher(inputText:str, alphabet:str, key:str, mode=0):
 if __name__=="__main__":
     alphabet = string.ascii_lowercase
     cipher("hello", alphabet, "key", mode=0)
-    cipher("Hello", alphabet, "key", mode=0)
-    # cipher("Hopjy", alphabet, "key", mode=1)
-    # cipher("GEEKSFORGEEKS", alphabet, "AYUSH", mode=0)
+    cipher("rijvs", alphabet, "key", mode=0)
