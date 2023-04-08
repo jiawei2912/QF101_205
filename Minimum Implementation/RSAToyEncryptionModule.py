@@ -87,14 +87,11 @@ def _cipher(mode,n,e,d,inputtext):
     cipher_text = []
     if mode == 0:
         for char in plain_text:
-            # cipher_hex = hex((ord(char)**e)%n)
-            cipher_hex = (ord(char)**e)%n
-            # cipher_text.append(str(cipher_hex)[2:])   
+            cipher_hex = (ord(char)**e)%n  
             cipher_text.append(str(cipher_hex))    
         return (' '.join(cipher_text))    
     else:
         for char in plain_text.split(' '):
-            # plain_dec = (int(char, 16)**d)%n
             plain_dec = (int(char)**d)%n
             cipher_text.append(chr(plain_dec))
         return (''.join(cipher_text))  
