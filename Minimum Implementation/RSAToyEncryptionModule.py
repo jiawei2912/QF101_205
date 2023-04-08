@@ -1,13 +1,10 @@
 from __future__ import annotations
 from typing import List
-from PyQt5 import QtWidgets
 import random
-from PyUI import RSAToyEncryptionUI
 from math import gcd
 
-# Todo: 1) Remove the use of the Class and the GUI
-#       2) You can use functions
-#       3) Simplify this into a standalone file
+
+
 
 # <><> Utility Function <><>
 def _isPrime(n):
@@ -21,125 +18,90 @@ def _isPrime(n):
             return False
     return True
 
+order:int = 70
+min_pq:int = 100
+max_pq:int = 10_000
+primes:List[int] = [i for i in range(min_pq, max_pq+1) if _isPrime(i)]
+min_n:int = 10000
+max_n:int = 1_000_000
+primes:List[int] = [i for i in range(min_pq, max_pq+1) if _isPrime(i)]
 
-# Each AppModule needs to have:
-#   title: display name of the module
-#   order: ordering priority; lower numbers will be displayed higher up
-class RSAToyEncryptionModule(QtWidgets.QWidget):
-    title:str = "RSA Encryption (Toy)"
-    order:int = 70
-    min_pq:int = 100
-    max_pq:int = 10_000
-    primes:List[int] = [i for i in range(min_pq, max_pq+1) if _isPrime(i)]
-    min_n:int = 10000
-    max_n:int = 1_000_000
 
-    def __init__(self) -> None:
-        super().__init__()
-        self.ui = RSAToyEncryptionUI.Ui_ModulePage()
-        self.ui.setupUi(self)
-        self._setUpButtonCallbacks()
-        self._resetButtonClickedCallback()
-    
-    def _setUpButtonCallbacks(self):
-        self.ui.encodeButton.clicked.connect(lambda: self._cipher())
-        self.ui.decodeButton.clicked.connect(lambda: self._cipher(1))
-        self.ui.resetButton.clicked.connect(self._resetButtonClickedCallback)
-        self.ui.generateKeyPairButton.clicked.connect(self._generate_rsa_key_pair)
-        # textChanged is emitted whenever the text changes
-        # textEdited is emitted only when its edited by the user using keyboard/mouse
-        self.ui.input_n_1.textEdited.connect(lambda: self.ui.input_n_2.setText(self.ui.input_n_1.text()))
-        self.ui.input_n_2.textEdited.connect(lambda: self.ui.input_n_1.setText(self.ui.input_n_2.text()))
-        
-        pass
+def _generate_rsa_key_pair():
+    # Draw 2 random primes
+    p = q = -1
+    while p == q:
+        p, q = random.choices(primes, k=2)
+        if p*q < min_n or p*q > max_n:
+            p = q = -1
+    # Calculate n, e, and d
+    n = p*q
+    phi = (p-1)*(q-1)
+    e = -1
+    for i in range(2, n):
+        if gcd(i, phi) == 1:
+            e = i
+            break
+    d = -1
+    for i in range(2, n):
+        if i*e % phi == 1:
+            d = i
+            break
+    # Output to UI
+    return n, e, d
 
-    # Realistically, this only needs to be greater than 128
-    # since I'm only allowing ASCII. However, this default
-    # range allows a greater variety of keys.
-    def _generate_rsa_key_pair(self):
-        # Draw 2 random primes
-        p = q = -1
-        while p == q:
-            p, q = random.choices(RSAToyEncryptionModule.primes, k=2)
-            if p*q < self.min_n or p*q > self.max_n:
-                p = q = -1
-        # Calculate n, e, and d
-        n = p*q
-        phi = (p-1)*(q-1)
-        e = -1
-        for i in range(2, n):
-            if gcd(i, phi) == 1:
-                e = i
-                break
-        d = -1
-        for i in range(2, n):
-            if i*e % phi == 1:
-                d = i
-                break
-        # Output to UI
-        self.ui.input_n_1.setText(str(n))
-        self.ui.input_n_2.setText(str(n))
-        self.ui.input_e.setText(str(e))
-        self.ui.input_d.setText(str(d))
 
-    # Todo: 1) Make a CLI copy of this in 'Improved Implementation' that 'teaches' Eexademical
-    #       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of hexademical 
+
 
     # 0 for encode, 1 for decode
-    def _cipher(self, mode=0):
-        # Input Validation
-        inputs = [self.ui.input_n_1.text(), self.ui.input_e.text(), self.ui.input_d.text()]
-        errText = "Error. Please provide integers for n and e."
-        if mode == 0: #encrypt
-            inputs.pop(2)
-        elif mode == 1: #decrypt
-            inputs.pop(1)
-            errText = "Error. Please provide integers for n and d."
-        for input in inputs:
+def _cipher(mode,n,e,d,inputtext):
+    # Input Validation
+    inputs = [n,e,d]
+    if mode == 0: #encrypt
+        inputs.pop(2)
+    elif mode == 1: #decrypt
+        inputs.pop(1)
+    for input in inputs:
+        try:
+            if int(input) != float(input):
+                raise ValueError
+        except ValueError:
+            print("Error. Please provide integers.")
+            return
+    for char in inputtext:
+        if ord(char) > 128:
+            print('Error! This implementation only accepts ASCII-characters in its input.')
+            return
+    if mode == 1:
+        for char in inputtext.split(' '):
             try:
-                if int(input) != float(input):
-                    raise ValueError
+                # int(char, 16)
+                int(char)
             except ValueError:
-                self.ui.output_ciphertext.setText(errText)
+                print('Error! The input should be hexadecimal.')
                 return
-        for char in self.ui.input_plaintext.toPlainText():
-            if ord(char) > 128:
-                self.ui.output_ciphertext.setText('Error! This implementation only accepts ASCII-characters in its input.')
-                return
-        if mode == 1:
-            for char in self.ui.input_plaintext.toPlainText().split(' '):
-                try:
-                    int(char, 16)
-                except ValueError:
-                    self.ui.output_ciphertext.setText('Error! The input should be hexadecimal.')
-                    return
 
-        # The Validated Parameters
-        n = int(self.ui.input_n_1.text())
-        e = int(self.ui.input_e.text())
-        d = int(self.ui.input_d.text())
 
-        # Ciphering...
-        plain_text = self.ui.input_plaintext.toPlainText()
-        cipher_text = []
-        if mode == 0:
-            for char in plain_text:
-                cipher_hex = hex((ord(char)**e)%n)
-                cipher_text.append(str(cipher_hex)[2:])       
-            self.ui.output_ciphertext.setText(' '.join(cipher_text))    
-        else:
-            for char in plain_text.split(' '):
-                plain_dec = (int(char, 16)**d)%n
-                cipher_text.append(chr(plain_dec))
-            self.ui.output_ciphertext.setText(''.join(cipher_text))  
+    # Ciphering...
+    plain_text = inputtext
+    cipher_text = []
+    if mode == 0:
+        for char in plain_text:
+            # cipher_hex = hex((ord(char)**e)%n)
+            cipher_hex = (ord(char)**e)%n
+            # cipher_text.append(str(cipher_hex)[2:])   
+            cipher_text.append(str(cipher_hex))    
+        return (' '.join(cipher_text))    
+    else:
+        for char in plain_text.split(' '):
+            # plain_dec = (int(char, 16)**d)%n
+            plain_dec = (int(char)**d)%n
+            cipher_text.append(chr(plain_dec))
+        return (''.join(cipher_text))  
         
 
-    def _resetButtonClickedCallback(self):
-        self.ui.input_e.clear()
-        self.ui.input_d.clear()      
-        self.ui.input_n_1.clear()
-        self.ui.input_n_2.clear()  
-        self.ui.input_plaintext.clear()
-        self.ui.output_ciphertext.clear()
 
 
+if __name__ == "__main__":
+    print(_cipher(0,792859,3,525403,'i love qf'))
+    print(_cipher(1,792859,3,525403,'364766 32768 466853 574772 57314 237442 32768 650038 268349'))
