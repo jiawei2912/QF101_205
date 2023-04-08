@@ -1,6 +1,8 @@
 from typing import List
 import string
 
+
+
 def cipher(inputText:str, alphabet:str, key:str, mode=0):
     # Input Validation
     if not len(alphabet) > 0:
@@ -23,9 +25,13 @@ def cipher(inputText:str, alphabet:str, key:str, mode=0):
     key:List[str] = list(key.lower())
     inputText = inputText.lower()
 
+    # offsets a string by an offset
+    def slicer(alphabet:str, offset:int)->list:
+        return alphabet[offset:] + alphabet[:offset]
+
     # Create Vigenere table: 2D list where each row is the alphabet, shifted by row number i. 
     # e.g., 1: a,b,c,d 2: b,c,d,a 3: c,d,a,v ....
-    vTable:List[List] = [(lambda a, i: a[i:] + a[:i])(alphabet, i) for i in range(len(alphabet))]
+    vTable:List[List] = [slicer(alphabet, i) for i in range(len(alphabet))]
 
     cipher_text = []
     for i in range(len(inputText)): # For each character

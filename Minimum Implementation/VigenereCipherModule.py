@@ -20,14 +20,14 @@ def cipher(inputText:str, alphabet:str, key:str, mode=0):
     # The Validated Parameters
     alphabet:List[str] = list(alphabet.lower())
     key:List[str] = list(key.lower())
+    inputText = inputText.lower()
 
     # plaintext letter corresponds to row
     # key letter corresponds to column
-    # Ciphering...
-    plain_text = inputText.lower()
+    
     cipher_text = []
-    for i in range(len(plain_text)): # For each character
-        char = plain_text[i]
+    for i in range(len(inputText)): # For each character
+        char = inputText[i]
         # Get key character per index
         key_char = key[i%len(key)]
         if char in alphabet:
@@ -44,10 +44,9 @@ def cipher(inputText:str, alphabet:str, key:str, mode=0):
                 cipher_text.append(alphabet[oCharIdx])
         else:
             cipher_text.append(char)
-    print("Result: ", end='')
-    print(''.join(cipher_text))
+    return ''.join(cipher_text)
 
 if __name__=="__main__":
     alphabet = string.ascii_lowercase
-    cipher("hello", alphabet, "key", mode=0)
-    cipher("rijvs", alphabet, "key", mode=0)
+    print(cipher("hello", alphabet, "key", mode=0))
+    print(cipher("rijvs", alphabet, "key", mode=1))
