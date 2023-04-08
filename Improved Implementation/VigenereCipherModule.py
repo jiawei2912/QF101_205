@@ -36,9 +36,9 @@ def cipher(inputText:str, alphabet:str, key:str, mode=0):
     key:List[str] = list(key.lower())
     inputText = inputText.lower()
 
-    # Create 2D list where each row is the alphabet, shifted by row number i. 
+    # Create Vigenere table: 2D list where each row is the alphabet, shifted by row number i. 
     # e.g., 1: a,b,c,d 2: b,c,d,a 3: c,d,a,v ....
-    table:List[List] = [(lambda a, i: a[i:] + a[:i])(alphabet, i) for i in range(len(alphabet))]
+    vTable:List[List] = [(lambda a, i: a[i:] + a[:i])(alphabet, i) for i in range(len(alphabet))]
 
     cipher_text = []
     for i in range(len(inputText)): # For each character
@@ -46,10 +46,10 @@ def cipher(inputText:str, alphabet:str, key:str, mode=0):
         iCharIdx, kCharIdx = alphabet.index(inputText[i]), alphabet.index(key[i%len(key)])
         if mode==0: # if encoding
             # Append the character in the Vigenere table corresponding to input and key characters
-            cipher_text.append(table[kCharIdx][iCharIdx])
+            cipher_text.append(vTable[kCharIdx][iCharIdx])
         else:  # if decoding
             # Get the alphabet index of the char in the row corresponding to the key character
-            oCharIdx = table[kCharIdx].index(inputText[i])
+            oCharIdx = vTable[kCharIdx].index(inputText[i])
             # Convert alphabet index to alphabet char
             cipher_text.append(alphabet[oCharIdx])
     return ''.join(cipher_text)
