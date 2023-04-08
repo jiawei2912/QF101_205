@@ -32,49 +32,28 @@ def cipher(inputText:str, alphabet:str, key:str, mode=0):
 
     # The Validated Parameters
     alphabet:List[str] = list(alphabet.lower())
-    key = key * (len(inputText)//len(key)+1)
+    # convert key string to list
     key:List[str] = list(key.lower())
     inputText = inputText.lower()
 
-    alphIndex = {a:i for i, a in enumerate(alphabet)}
-    # A 2D list
+    # Create 2D list where each row is the alphabet, shifted by row number i. 
+    # e.g., 1: a,b,c,d 2: b,c,d,a 3: c,d,a,v ....
     table:List[List] = [(lambda a, i: a[i:] + a[:i])(alphabet, i) for i in range(len(alphabet))]
 
     cipher_text = []
-    for i in range(len(inputText)):
-        iChar, kChar = alphIndex[inputText[i]], alphIndex[key[i]]
-        if mode==0:
-            cipher_text.append(table[kChar][iChar])
-        else: 
-            tIndex = table[kChar].index(inputText[i])
-            cipher_text.append(alphabet[tIndex])
+    for i in range(len(inputText)): # For each character
+        # Get the alphabet indices for input and key characters
+        iCharIdx, kCharIdx = alphabet.index(inputText[i]), alphabet.index(key[i%len(key)])
+        if mode==0: # if encoding
+            # Append the character in the Vigenere table corresponding to input and key characters
+            cipher_text.append(table[kCharIdx][iCharIdx])
+        else:  # if decoding
+            # Get the alphabet index of the char in the row corresponding to the key character
+            oCharIdx = table[kCharIdx].index(inputText[i])
+            # Convert alphabet index to alphabet char
+            cipher_text.append(alphabet[oCharIdx])
     return ''.join(cipher_text)
 
-
-    # for t in table:
-    #     print(t)
-
-    # plaintext letter corresponds to row
-    # key letter corresponds to column
-    # Ciphering...
-    
-    # plain_text = inputText
-    # cipher_text = []
-    # key_idx = 0
-    # for i in range(len(plain_text)):
-    #     char = plain_text[i]
-    #     key_char = key[key_idx%len(key)]
-    #     if char in alphabet:
-    #         if mode == 0:
-    #             cipher_text.append(alphabet[(alphabet.index(char)+alphabet.index(key_char))%len(alphabet)])
-    #         else:
-    #             # to decode, find where you are in the column and minus by idx of key_char in alphabet
-    #             cipher_text.append(alphabet[(alphabet.index(char)-alphabet.index(key_char))])
-    #         key_idx+=1
-    #     else:
-    #         cipher_text.append(char)
-    # print("Result: ", end='')
-    # print(''.join(cipher_text))
 
 if __name__=="__main__":
     alphabet = string.ascii_lowercase

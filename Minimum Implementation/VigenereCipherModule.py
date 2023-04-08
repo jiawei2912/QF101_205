@@ -30,25 +30,30 @@ def cipher(inputText:str, alphabet:str, key:str, mode=0):
             return
 
     # The Validated Parameters
-    alphabet:List[str] = list(alphabet)
-    key:List[str] = list(key)
+    alphabet:List[str] = list(alphabet.lower())
+    key:List[str] = list(key.lower())
 
     # plaintext letter corresponds to row
     # key letter corresponds to column
     # Ciphering...
-    plain_text = inputText
+    plain_text = inputText.lower()
     cipher_text = []
-    key_idx = 0
-    for i in range(len(plain_text)):
+    for i in range(len(plain_text)): # For each character
         char = plain_text[i]
-        key_char = key[key_idx%len(key)]
+        # Get key character per index
+        key_char = key[i%len(key)]
         if char in alphabet:
             if mode == 0:
-                cipher_text.append(alphabet[(alphabet.index(char)+alphabet.index(key_char))%len(alphabet)])
+                # Get the alphabet indices for input and key characters
+                iChar, kChar = alphabet.index(char), alphabet.index(key_char)
+                # Get the index of the output character
+                oCharIdx = (iChar + kChar)%len(alphabet)
+                # Convert alphabet index into alphabet char
+                cipher_text.append(alphabet[oCharIdx])
             else:
                 # to decode, find where you are in the column and minus by idx of key_char in alphabet
-                cipher_text.append(alphabet[(alphabet.index(char)-alphabet.index(key_char))])
-            key_idx+=1
+                oCharIdx = alphabet.index(char)-alphabet.index(key_char)
+                cipher_text.append(alphabet[oCharIdx])
         else:
             cipher_text.append(char)
     print("Result: ", end='')
@@ -56,6 +61,7 @@ def cipher(inputText:str, alphabet:str, key:str, mode=0):
 
 if __name__=="__main__":
     alphabet = string.ascii_lowercase
+    cipher("hello", alphabet, "key", mode=0)
     cipher("Hello", alphabet, "key", mode=0)
-    cipher("Hopjy", alphabet, "key", mode=1)
+    # cipher("Hopjy", alphabet, "key", mode=1)
     # cipher("GEEKSFORGEEKS", alphabet, "AYUSH", mode=0)
