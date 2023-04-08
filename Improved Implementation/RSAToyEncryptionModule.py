@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import List
 import random
 from math import gcd
+import time
 
 
 
@@ -99,5 +100,16 @@ def _cipher(mode,n,e,d,inputtext):
 
 
 if __name__ == "__main__":
-    print(_cipher(0,792859,3,525403,'i love qf'))
-    print(_cipher(1,792859,3,525403,'590de 8000 71fa5 8c534 dfe2 39f82 8000 9eb36 4183d'))
+    n,e,d=_generate_rsa_key_pair()
+    start = time.time()
+    ciphertext = _cipher(0,n,e,d,'i love qf')
+    print(ciphertext)
+    print(_cipher(1,n,e,d,str(ciphertext)))
+    end = time.time()
+    print('Time taken: ' + str(end - start)+'s')
+    start = time.time()
+    ciphertext = _cipher(0,n,e,d,'this is a super long message that might take some time to encrypt and decrypt, i dont know how long but it should take a while lets calculate it with some code')
+    print(ciphertext)
+    print(_cipher(1,n,e,d,str(ciphertext)))
+    end = time.time()
+    print('Time taken: ' + str(end - start)+'s')
