@@ -1,77 +1,146 @@
 from __future__ import annotations
 from typing import List
-from PyQt5 import QtWidgets
+import string
 
-from PyUI import CaesarCipherUI
+# Method 1: List Append
+def cipher(plainText, alphabet, shift, mode=0):
+    # Input Validation
+    if not len(alphabet) > 0:
+        print("Error. Please provide an alphabet.")
+        return
+    if len(set(alphabet)) != len(alphabet):
+        print("Error. Letters in the alphabet must be unique.")
+        return
+    try:
+        int_shift = int(shift)
+        if int_shift != float(shift):
+            raise ValueError
+    except ValueError:
+        print("Error. Please provide an integer for shift.")
+        return
+    shift = int(shift)
 
-# Todo: 1) Remove the use of the Class and the GUI
-#       2) You can use functions
-#       3) Simplify this into a standalone file
+    # Mode Switching
+    if mode == 1:
+        shift *= -1
 
-# Each AppModule needs to have:
-#   title: display name of the module
-#   order: ordering priority; lower numbers will be displayed higher up
-class CaesarCipherModule(QtWidgets.QWidget):
-    title:str = "Caesar Cipher"
-    order:int = 10
-    def __init__(self) -> None:
-        super().__init__()
-        self.ui = CaesarCipherUI.Ui_ModulePage()
-        self.ui.setupUi(self)
-        self._setUpButtonCallbacks()
-        self._resetButtonClickedCallback()
-    
-    def _setUpButtonCallbacks(self):
-        self.ui.encodeButton.clicked.connect(lambda: self._cipher())
-        self.ui.decodeButton.clicked.connect(lambda: self._cipher(1))
-        self.ui.resetButton.clicked.connect(self._resetButtonClickedCallback)
-        pass
+    # The Validated Parameters
+    alphabet:List[str] = list(alphabet)
+    shift:int = shift%len(alphabet)
 
-    # Todo: 1) Make a CLI copy of this function in 'Improved Implementation' that 'teaches' List
-    #       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of a List
-    
-    # 0 for encode, 1 for decode
-    def _cipher(self, mode=0):
-        # Input Validation
-        alphabet:str = self.ui.input_alphabet.text()
-        if not len(alphabet) > 0:
-            self.ui.output_ciphertext.setText("Error. Please provide an alphabet.")
-            return
-        if len(set(alphabet)) != len(alphabet):
-            self.ui.output_ciphertext.setText("Error. Letters in the alphabet must be unique.")
-            return
-        shift = self.ui.input_shift.text()
-        try:
-            int_shift = int(shift)
-            if int_shift != float(shift):
-                raise ValueError
-        except ValueError:
-            self.ui.output_ciphertext.setText("Error. Please provide an integer for shift.")
-            return
-        shift = int(shift)
+    # (De)Ciphering...
+    cipher_text = []
+    for char in plainText:
+        if char in alphabet:
+            cipher_text.append(alphabet[(alphabet.index(char)+shift)%len(alphabet)])
+        else:
+            cipher_text.append(char)
+    return ''.join(cipher_text)
 
-        # Mode Switching
-        if mode == 1:
-            shift = -shift
+# Method 2: List + List
+def cipher(plainText, alphabet, shift, mode=0):
+    # Input Validation
+    if not len(alphabet) > 0:
+        print("Error. Please provide an alphabet.")
+        return
+    if len(set(alphabet)) != len(alphabet):
+        print("Error. Letters in the alphabet must be unique.")
+        return
+    try:
+        int_shift = int(shift)
+        if int_shift != float(shift):
+            raise ValueError
+    except ValueError:
+        print("Error. Please provide an integer for shift.")
+        return
+    shift = int(shift)
 
-        # The Validated Parameters
-        alphabet:List[str] = list(alphabet)
-        shift:int = shift%len(alphabet)
+    # Mode Switching
+    if mode == 1:
+        shift *= -1
 
-        # Ciphering...
-        plain_text = self.ui.input_plaintext.toPlainText()
-        cipher_text = []
-        for char in plain_text:
-            if char in alphabet:
-                cipher_text.append(alphabet[(alphabet.index(char)+shift)%len(alphabet)])
-            else:
-                cipher_text.append(char)
-        self.ui.output_ciphertext.setText(''.join(cipher_text))
+    # The Validated Parameters
+    alphabet:List[str] = list(alphabet)
+    shift:int = shift%len(alphabet)
 
-    def _resetButtonClickedCallback(self):
-        self.ui.input_alphabet.setText('abcdefghijklmnopqrstuvwxyz')
-        self.ui.input_shift.setText('7')
-        self.ui.input_plaintext.clear()
-        self.ui.output_ciphertext.clear()
-    pass
+    # (De)Ciphering...
+    cipher_text = []
+    for char in plainText:
+        if char in alphabet:
+            cipher_text = cipher_text + [alphabet[(alphabet.index(char)+shift)%len(alphabet)]]
+        else:
+            cipher_text = cipher_text + [char]
+    return ''.join(cipher_text)
 
+# Method 3: List += List
+def cipher(plainText, alphabet, shift, mode=0):
+    # Input Validation
+    if not len(alphabet) > 0:
+        print("Error. Please provide an alphabet.")
+        return
+    if len(set(alphabet)) != len(alphabet):
+        print("Error. Letters in the alphabet must be unique.")
+        return
+    try:
+        int_shift = int(shift)
+        if int_shift != float(shift):
+            raise ValueError
+    except ValueError:
+        print("Error. Please provide an integer for shift.")
+        return
+    shift = int(shift)
+
+    # Mode Switching
+    if mode == 1:
+        shift *= -1
+
+    # The Validated Parameters
+    alphabet:List[str] = list(alphabet)
+    shift:int = shift%len(alphabet)
+
+    # (De)Ciphering...
+    cipher_text = []
+    for char in plainText:
+        if char in alphabet:
+            cipher_text += [alphabet[(alphabet.index(char)+shift)%len(alphabet)]]
+        else:
+            cipher_text += [char]
+    return ''.join(cipher_text)
+
+# Method 4: List comprehension
+def cipher(plainText, alphabet, shift, mode=0):
+    # Input Validation
+    if not len(alphabet) > 0:
+        print("Error. Please provide an alphabet.")
+        return
+    if len(set(alphabet)) != len(alphabet):
+        print("Error. Letters in the alphabet must be unique.")
+        return
+    try:
+        int_shift = int(shift)
+        if int_shift != float(shift):
+            raise ValueError
+    except ValueError:
+        print("Error. Please provide an integer for shift.")
+        return
+    shift = int(shift)
+
+    # Mode Switching
+    if mode == 1:
+        shift *= -1
+
+    # The Validated Parameters
+    alphabet:List[str] = list(alphabet)
+    shift:int = shift%len(alphabet)
+
+    # (De)Ciphering...
+    cipher_text = [alphabet[(alphabet.index(char)+shift)%len(alphabet)] 
+                   if char in alphabet else char 
+                   for char in plainText]
+
+    return ''.join(cipher_text)
+
+if __name__=="__main__":
+    alphabet = string.ascii_lowercase
+    print(cipher("hello", alphabet, 5, mode=0))
+    print(cipher("mjqqt", alphabet, 5, mode=1))

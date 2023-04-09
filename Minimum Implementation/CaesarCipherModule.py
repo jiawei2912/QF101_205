@@ -1,77 +1,67 @@
-from __future__ import annotations
-from typing import List
-from PyQt5 import QtWidgets
-
-from PyUI import CaesarCipherUI
-
-# Todo: 1) Remove the use of the Class and the GUI
-#       2) You can use functions
-#       3) Simplify this into a standalone file
-
-# Each AppModule needs to have:
-#   title: display name of the module
-#   order: ordering priority; lower numbers will be displayed higher up
-class CaesarCipherModule(QtWidgets.QWidget):
-    title:str = "Caesar Cipher"
-    order:int = 10
-    def __init__(self) -> None:
-        super().__init__()
-        self.ui = CaesarCipherUI.Ui_ModulePage()
-        self.ui.setupUi(self)
-        self._setUpButtonCallbacks()
-        self._resetButtonClickedCallback()
+def cipher(plainText: str,shift: int, mode: int):
+    if int(shift) != float(shift) or shift > 2:
+        print("Error, please use an integer that is 1 or 2 for shift")
+        return
     
-    def _setUpButtonCallbacks(self):
-        self.ui.encodeButton.clicked.connect(lambda: self._cipher())
-        self.ui.decodeButton.clicked.connect(lambda: self._cipher(1))
-        self.ui.resetButton.clicked.connect(self._resetButtonClickedCallback)
-        pass
-
-    # Todo: 1) Make a CLI copy of this function in 'Improved Implementation' that 'teaches' List
-    #       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of a List
+    result = ''
+    for char in plainText:
+        if shift == 1:
+            if mode == 0: # ciphering
+                if char == 'a':
+                    result = result + 'b'
+                elif char =='b':
+                    result = result + 'c'
+                elif char == 'c':
+                    result = result + 'd'
+                elif char == 'd':
+                    result = result + 'e'
+                elif char == 'e':
+                    result = result + 'a'
+                else:
+                    result = result + char
+            else: # deciphering
+                if char == 'a':
+                    result = result + 'e'
+                elif char =='b':
+                    result = result + 'a'
+                elif char == 'c':
+                    result = result + 'b'
+                elif char == 'd':
+                    result = result + 'c'
+                elif char == 'e':
+                    result = result + 'd'
+                else:
+                    result = result + char
+        if shift == 2:
+            if mode == 0: # ciphering
+                if char == 'a':
+                    result = result + 'c'
+                elif char =='b':
+                    result = result + 'd'
+                elif char == 'c':
+                    result = result + 'e'
+                elif char == 'd':
+                    result = result + 'a'
+                elif char == 'e':
+                    result = result + 'b'
+                else:
+                    result = result + char
+            else: #deciphering
+                if char == 'a':
+                    result = result + 'd'
+                elif char =='b':
+                    result = result + 'e'
+                elif char == 'c':
+                    result = result + 'a'
+                elif char == 'd':
+                    result = result + 'b'
+                elif char == 'e':
+                    result = result + 'c'
+                else:
+                    result = result + char
     
-    # 0 for encode, 1 for decode
-    def _cipher(self, mode=0):
-        # Input Validation
-        alphabet:str = self.ui.input_alphabet.text()
-        if not len(alphabet) > 0:
-            self.ui.output_ciphertext.setText("Error. Please provide an alphabet.")
-            return
-        if len(set(alphabet)) != len(alphabet):
-            self.ui.output_ciphertext.setText("Error. Letters in the alphabet must be unique.")
-            return
-        shift = self.ui.input_shift.text()
-        try:
-            int_shift = int(shift)
-            if int_shift != float(shift):
-                raise ValueError
-        except ValueError:
-            self.ui.output_ciphertext.setText("Error. Please provide an integer for shift.")
-            return
-        shift = int(shift)
+    return result
 
-        # Mode Switching
-        if mode == 1:
-            shift = -shift
-
-        # The Validated Parameters
-        alphabet:List[str] = list(alphabet)
-        shift:int = shift%len(alphabet)
-
-        # Ciphering...
-        plain_text = self.ui.input_plaintext.toPlainText()
-        cipher_text = []
-        for char in plain_text:
-            if char in alphabet:
-                cipher_text.append(alphabet[(alphabet.index(char)+shift)%len(alphabet)])
-            else:
-                cipher_text.append(char)
-        self.ui.output_ciphertext.setText(''.join(cipher_text))
-
-    def _resetButtonClickedCallback(self):
-        self.ui.input_alphabet.setText('abcdefghijklmnopqrstuvwxyz')
-        self.ui.input_shift.setText('7')
-        self.ui.input_plaintext.clear()
-        self.ui.output_ciphertext.clear()
-    pass
-
+if __name__=="__main__":
+    print(cipher("becca", 1, mode=0))
+    print(cipher("caddb", 1, mode=1))
