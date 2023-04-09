@@ -2,19 +2,6 @@ from __future__ import annotations
 from typing import List
 import string
 
-# Todo: 1) Create a heavily simplified version of this module 
-#       2) This implementation should have a 'problem' that is resolved
-#           by the 'Improved Implementation'
-
-# Each AppModule needs to have:
-#   title: display name of the module
-#   order: ordering priority; lower numbers will be displayed higher up
-
-# Todo for XOR Cipher: 
-#        1) Make a CLI copy of this in 'Improved Implementation' that 'teaches' bitwise operators
-#       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of bitwise operators
-
-# 0 for encode, 1 for decode
 def cipher(inputText:str, key:str, isAscii: bool):
     # Input Validation
     if not len(key) > 0:
@@ -53,3 +40,5 @@ def cipher(inputText:str, key:str, isAscii: bool):
 if __name__ == "__main__":
     cipher("101010", "111111", isAscii= False)
     cipher("010101", "111111", isAscii= False)
+
+    

@@ -2,18 +2,10 @@ from __future__ import annotations
 from typing import List
 import string
 
-# Todo: 1) Create a heavily simplified version of this module 
-#       2) This implementation should have a 'problem' that is resolved
-#           by the 'Improved Implementation'
+# This function takes in an inputText string and a key string, and performs a basic XOR cipher.
+# The function prints the resulting ciphered text to the console.
+# The function also performs input validation to ensure that the key and input are binary strings.
 
-# Each AppModule needs to have:
-#   title: display name of the module
-#   order: ordering priority; lower numbers will be displayed higher up
-
-# Todo for XOR Cipher: 1) Make a CLI copy of this in 'Improved Implementation' that 'teaches' bitwise operators
- #       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of bitwise operators
-
-# 0 for encode, 1 for decode
 def cipher(inputText:str, key:str):
     # Input Validation
     if not len(key) > 0:
@@ -32,13 +24,19 @@ def cipher(inputText:str, key:str):
     cipher_text = []
     key_idx = 0
 
+    # For each character in the inputText string, XOR it with the corresponding character in the key string.
+    # Append the result to the cipher_text list.
+    # The resulting ciphered text is a binary string.
     for char in plain_text:
         cipher_text.append('0' if char == key[key_idx] else '1')
         key_idx = (key_idx+1)%len(key)
 
+# Print the resulting ciphered text to the console.
     print("Result:", end='')
     print(''.join(cipher_text))
 
+# This code runs the cipher function with two different input strings.
+# The output of each function call is printed to the console.
 if __name__ == "__main__":
     cipher("101010","111111")
     cipher("010101", "111111")
