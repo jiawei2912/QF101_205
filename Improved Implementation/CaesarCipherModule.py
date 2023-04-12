@@ -106,8 +106,42 @@ def cipher(plainText, alphabet, shift, mode=0):
         else:
             cipher_text += [char]
     return ''.join(cipher_text)
+# Method 4: List.extend(list)
+def cipher(plainText, alphabet, shift, mode=0):
+    # Input Validation
+    if not len(alphabet) > 0:
+        print("Error. Please provide an alphabet.")
+        return
+    if len(set(alphabet)) != len(alphabet):
+        print("Error. Letters in the alphabet must be unique.")
+        return
+    try:
+        int_shift = int(shift)
+        if int_shift != float(shift):
+            raise ValueError
+    except ValueError:
+        print("Error. Please provide an integer for shift.")
+        return
+    shift = int(shift)
 
-# Method 4: List comprehension
+    # Mode Switching
+    if mode == 1:
+        shift *= -1
+
+    # The Validated Parameters
+    alphabet:List[str] = list(alphabet)
+    shift:int = shift%len(alphabet)
+
+    # (De)Ciphering...
+    cipher_text = []
+    for char in plainText:
+        if char in alphabet:
+            cipher_text.extend([alphabet[(alphabet.index(char)+shift)%len(alphabet)]])
+        else:
+            cipher_text.extend([char])
+    return ''.join(cipher_text)
+
+# Method 5: List comprehension
 def cipher(plainText, alphabet, shift, mode=0):
     # Input Validation
     if not len(alphabet) > 0:

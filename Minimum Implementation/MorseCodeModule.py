@@ -33,7 +33,6 @@ ALPHABET_MORSE_CODE = [
     '--..'
 ]
 
-#ord(0) = 48
 NUMBER_MORSE_CODE = [
     '-----',
     '.----',
@@ -77,7 +76,5 @@ def decode(plainText):
     return ''.join(cipher_text)
 
 if __name__=="__main__":
-    s = string.ascii_lowercase
-
     print(encode("becca"))
     print(decode("-... . -.-. -.-. .-"))

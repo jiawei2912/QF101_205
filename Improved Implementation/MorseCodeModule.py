@@ -88,14 +88,6 @@ def encode(plainText):
             cipher_text.append(char)
     return ' '.join(cipher_text)
 
-
-#more better encode
-def encode(plainText):
-    return ' '.join(ALPHANUM_2_MORSE_CODE[char] if char in ALPHANUM_2_MORSE_CODE 
-                    else ' /' if char == ' ' else char
-                    for char in plainText)
-
-
 def decode(plainText):
     cipher_text = []
     for char in plainText.split():
@@ -107,6 +99,11 @@ def decode(plainText):
             cipher_text.append(char)
     return ''.join(cipher_text)
 
+#more better encode
+def encode(plainText):
+    return ' '.join(ALPHANUM_2_MORSE_CODE[char] if char in ALPHANUM_2_MORSE_CODE 
+                    else ' /' if char == ' ' else char
+                    for char in plainText)
 
 # more better decode
 def decode(plainText):
