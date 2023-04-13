@@ -53,7 +53,7 @@ def _cipher(alphabet:str, key_a:int, key_b:int, plain_text, mode=0):
                 else:
                     alphabet_length = len(alphabet)
                     keys2 = modinv*(alphabet.index(char)-key_b)
-                    modinv = pow(key_a, -1, alphabet_length) #Note: requires Python 3.8+
+                    modinv = (key_a ** -1) % alphabet_length
                     cipher_text.append(alphabet[keys2%alphabet_length])
 
             else:
