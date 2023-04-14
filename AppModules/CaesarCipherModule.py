@@ -22,9 +22,6 @@ class CaesarCipherModule(QtWidgets.QWidget):
         self.ui.decodeButton.clicked.connect(lambda: self._cipher(1))
         self.ui.resetButton.clicked.connect(self._resetButtonClickedCallback)
         pass
-
-    # Todo: 1) Make a CLI copy of this function in 'Improved Implementation' that 'teaches' List
-    #       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of a List
     
     # 0 for encode, 1 for decode
     def _cipher(self, mode=0):
