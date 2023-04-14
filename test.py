@@ -54,15 +54,19 @@ def rsa_encrypt(m, e, n):
 def rsa_decrypt(c, d, n):
     print('plaintext:', (c**d) % n)
 
-# gen_rsa(101, 79) # n=7979, e=7, d=3343
+gen_rsa(3, 11) # n=33, e=3, d=7
+rsa_encrypt(5, 3, 33)
+rsa_decrypt(26, 7, 33)
+
+#gen_rsa(101, 79) # n=7979, e=7, d=3343
 # rsa_encrypt(9, 7, 7979) # 3548
 # rsa_decrypt(3548, 3343, 7979)
 
-primes = []
-for i in range(10_000, 100_000+1):
-    if isPrime(i):
-        primes.append(i)
-print(primes)
+# primes = []
+# for i in range(10_000, 100_000+1):
+#     if isPrime(i):
+#         primes.append(i)
+# print(primes)
 
 
 # 8 bits per ASCII char
