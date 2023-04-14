@@ -1,3 +1,15 @@
+# QF205 Python Project: Python and Its Applications in Ciphers
+## Aim of the Project
+This project is a part of the SMU QF205 Computing Technology for Finance course, and as prescribed, this report is written with the aim of teaching Python basics and some intermediate-level Python concepts. This will be done through the implementation of introductory encryption methods. 
+The report will use various ciphers, from the Caesar cipher to RSA encryption, to demonstrate the features, data structures, and user-friendliness of Python when implementing fundamental encryption concepts. We will also explore fundamental programming concepts such as variables, data types, loops, conditional logic, functions, and bitwise operations. Finally, we will also delve into some advanced topics such as classes, modularization, and a graphical user interface (GUI) implementation using the PyQt5 library.
+Overall, this report aims to be a guide for anyone interested in learning the basics of Python through an introductory application of it to ciphers and encryption.
+
+# Structure of the code
+1) The main entry point of the code is main.py
+2) The modules used for the program are stored in AppModules
+3) The PyQt5 Python GUI files are stored in PyUI
+4) The Qt Designer files are in UIFiles
+
 # Usage of UI Files
 ## 1) Suggestion: Avoid loading .ui files directly.
 When a .ui file is loaded, all objects within it become direct class attributes of the main window.
