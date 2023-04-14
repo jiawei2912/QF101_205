@@ -1,110 +1,117 @@
-from __future__ import annotations
-from typing import List
-from PyQt5 import QtWidgets
+ALPHANUM_2_MORSE_CODE = {
+    'a': '.-',
+    'b': '-...',
+    'c': '-.-.',
+    'd': '-..',
+    'e': '.',
+    'f': '..-.',
+    'g': '--.',
+    'h': '....',
+    'i': '..',
+    'j': '.---',
+    'k': '-.-',
+    'l': '.-..',
+    'm': '--',
+    'n': '-.',
+    'o': '---',
+    'p': '.--.',
+    'q': '--.-',
+    'r': '.-.',
+    's': '...',
+    't': '-',
+    'u': '..-',
+    'v': '...-',
+    'w': '.--',
+    'x': '-..-',
+    'y': '-.--',
+    'z': '--..',
+    0: '-----',
+    1: '.----',
+    2: '..---',
+    3: '...--',
+    4: '....-',
+    5: '.....',
+    6: '-....',
+    7: '--...',
+    8: '---..',
+    9: '----.'
+}
 
-from PyUI import MorseCodeUI
-
-# Todo: 1) Remove the use of the Class and the GUI
-#       2) You can use functions
-#       3) Simplify this into a standalone file
-
-# Each AppModule needs to have:
-#   self.title: display name of the module
-#   self.order: ordering priority; lower numbers will be displayed higher up
-class MorseCodeModule(QtWidgets.QWidget):
-    title:str = "Morse Code"
-    order:int = 50
-    def __init__(self) -> None:
-        super().__init__()
-        self.ui = MorseCodeUI.Ui_ModulePage()
-        self.ui.setupUi(self)
-        self._setUpButtonCallbacks()
-        self._resetButtonClickedCallback()
-    
-    def _setUpButtonCallbacks(self):
-        self.ui.encodeButton.clicked.connect(lambda: self._encode())
-        self.ui.decodeButton.clicked.connect(lambda: self._decode())
-        self.ui.resetButton.clicked.connect(self._resetButtonClickedCallback)
-        pass
-
-    #ord('a') = 97
-    ALPHABET_MORSE_CODE = [
-        '.-',
-        '-...',
-        '-.-.',
-        '-..',
-        '.',
-        '..-.',
-        '--.',
-        '....',
-        '..',
-        '.---',
-        '-.-',
-        '.-..',
-        '--',
-        '-.',
-        '---',
-        '.--.',
-        '--.-',
-        '.-.',
-        '...',
-        '-',
-        '..-',
-        '...-',
-        '.--',
-        '-..-',
-        '-.--',
-        '--..'
-    ]
-
-    #ord(0) = 48
-    NUMBER_MORSE_CODE = [
-        '-----',
-        '.----',
-        '..---',
-        '...--',
-        '....-',
-        '.....',
-        '-....',
-        '--...',
-        '---..',
-        '----.'
-    ]
-
-    # Todo: 1) Make a CLI copy of this in 'Improved Implementation' that 'teaches' Dict
-    #       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of a Dict
-
-    def _encode(self):
-        plain_text = self.ui.input_plaintext.toPlainText()
-        cipher_text = []
-        for char in plain_text:
-            if ord(char) >= 97 and ord(char) < 97+26:
-                cipher_text.append(MorseCodeModule.ALPHABET_MORSE_CODE[ord(char)-97])
-            elif ord(char) >= 48 and ord(char) < 48+10:
-                cipher_text.append(MorseCodeModule.NUMBER_MORSE_CODE[ord(char)-48])
-            elif char == ' ':
-                cipher_text.append(' / ')
-            else:
-                cipher_text.append(char)
-        self.ui.output_ciphertext.setText(' '.join(cipher_text))
-
-    def _decode(self):
-        plain_text = self.ui.input_plaintext.toPlainText().split(' ')
-        cipher_text = []
-        for char in plain_text:
-            if char in MorseCodeModule.ALPHABET_MORSE_CODE:
-                cipher_text.append(chr(MorseCodeModule.ALPHABET_MORSE_CODE.index(char) + 97))
-            elif char in MorseCodeModule.NUMBER_MORSE_CODE:
-                cipher_text.append(chr(MorseCodeModule.NUMBER_MORSE_CODE.index(char) + 48))
-            elif char == '/':
-                cipher_text.append(' ')
-            else:
-                cipher_text.append(char)
-        self.ui.output_ciphertext.setText(''.join(cipher_text))
+MORSE_CODE_2_ALPHANUM = {
+    '.-': 'a',
+    '-...': 'b',
+    '-.-.': 'c',
+    '-..': 'd',
+    '.': 'e',
+    '..-.': 'f',
+    '--.': 'g',
+    '....': 'h',
+    '..': 'i',
+    '.---': 'j',
+    '-.-': 'k',
+    '.-..': 'l',
+    '--': 'm',
+    '-.': 'n',
+    '---': 'o',
+    '.--.': 'p',
+    '--.-': 'q',
+    '.-.': 'r',
+    '...': 's',
+    '-': 't',
+    '..-': 'u',
+    '...-': 'v',
+    '.--': 'w',
+    '-..-': 'x',
+    '-.--': 'y',
+    '--..': 'z',
+    '-----': 0,
+    '.----': 1,
+    '..---': 2,
+    '...--': 3,
+    '....-': 4,
+    '.....': 5,
+    '-....': 6,
+    '--...': 7,
+    '---..': 8,
+    '----.': 9
+}
 
 
-    def _resetButtonClickedCallback(self):
-        self.ui.input_plaintext.clear()
-        self.ui.output_ciphertext.clear()
-    pass
+def encode(plainText):
+    cipher_text = []
+    for char in plainText:
+        if char in ALPHANUM_2_MORSE_CODE:
+            cipher_text.append(ALPHANUM_2_MORSE_CODE[char])
+        elif char == ' ':
+            cipher_text.append(' / ')
+        else:
+            cipher_text.append(char)
+    return ' '.join(cipher_text)
 
+def decode(plainText):
+    cipher_text = []
+    for char in plainText.split():
+        if char in MORSE_CODE_2_ALPHANUM:
+            cipher_text.append(MORSE_CODE_2_ALPHANUM[char])
+        elif char == '/':
+            cipher_text.append(' ')
+        else:
+            cipher_text.append(char)
+    return ''.join(cipher_text)
+
+#more better encode
+def encode(plainText):
+    return ' '.join(ALPHANUM_2_MORSE_CODE[char] if char in ALPHANUM_2_MORSE_CODE 
+                    else ' /' if char == ' ' else char
+                    for char in plainText)
+
+# more better decode
+def decode(plainText):
+    return ''.join(MORSE_CODE_2_ALPHANUM[char] if char in MORSE_CODE_2_ALPHANUM
+                   else ' ' if char == '/' else char
+                   for char in plainText.split())
+
+
+if __name__ == "__main__":
+    print(encode("my pony flies over the ocean, my pony lies over the sea"))
+    print(decode("-- -.--  /  .--. --- -. -.--  /  ..-. .-.. .. . ...  /  --- ...- . .-.  /  - .... .  /  --- -.-. . .- -. ,  /  -- -.--  /  .--. --- -. -.--  /  .-.. .. . ...  /  --- ...- . .-.  /  - .... .  /  ... . .-"))
