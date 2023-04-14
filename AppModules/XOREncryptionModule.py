@@ -27,9 +27,6 @@ class XOREncryptionModule(QtWidgets.QWidget):
         self.mode_rb_group.addButton(self.ui.radioButton_Binary)
         self.mode_rb_group.addButton(self.ui.radioButton_ASCII)
 
-    # Todo: 1) Make a CLI copy of this in 'Improved Implementation' that 'teaches' bitwise operators
-    #       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of bitwise operators
-
     # 0 for encode, 1 for decode
     def _cipher(self):
         # Input Validation

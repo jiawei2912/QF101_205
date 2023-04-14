@@ -5,8 +5,6 @@ from math import gcd
 import time
 
 
-
-
 # <><> Utility Function <><>
 def _isPrime(n):
     if n == 2 or n == 3:
@@ -54,7 +52,7 @@ def _generate_rsa_key_pair():
 
 
 
-    # 0 for encode, 1 for decode
+# 0 for encode, 1 for decode
 def _cipher(mode,n,e,d,inputtext):
     # Input Validation
     inputs = [n,e,d]

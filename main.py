@@ -15,7 +15,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self._setUpButtonCallbacks()
         self._loadAppModules()
 
-        # jank ass resizing
+        # Resize the main window according to the length of the buttons
         largest_width = 0
         for lppButtonIdx in range(self.ui.landingPageVLayout.count()):
             lppButton = self.ui.landingPageVLayout.itemAt(lppButtonIdx).widget()
@@ -27,20 +27,12 @@ class MainWindow(QtWidgets.QMainWindow):
         # Slightly dangerous, as a module with a too long name might result in a window that
         # is too large and which cannot be shurnk
         self.setMinimumWidth(int(largest_width + 30))
-            
-        
-    # def resizeEvent(self, event:QtGui.QResizeEvent) -> None:
-    #     old_size = event.oldSize()
-    #     new_size = QtCore.QSize(self.geometry().width(), self.geometry().height())
-    #     print(old_size, new_size)
-    #     QtWidgets.QMainWindow.resizeEvent(self, event)
 
     def _setUpButtonCallbacks(self):
         self.ui.backButton.clicked.connect(lambda : self.navigateTo(0))
         self.ui.backButton.setVisible(False)
         self.ui.header_separator.setVisible(False)
 
-    # ToDo: Add error handling
     def _loadAppModules(self):
         sub_modules = inspect.getmembers(AppModules, inspect.ismodule)
         sub_modules = [sub_module[1] for sub_module in sub_modules]
@@ -67,7 +59,6 @@ class MainWindow(QtWidgets.QMainWindow):
             self.ui.headerLabel.setText(newHeaderLabel)
             self.ui.header_separator.setVisible(True)
 
-# Consider adding either a maximum length ot the appName or enforcing wordwrap past a certain length
 class LandingPagePushButton(QtWidgets.QWidget):
     def __init__(self, mainWindow:MainWindow, appName:str, appIndex:int) -> None:
         super().__init__()
@@ -78,10 +69,8 @@ class LandingPagePushButton(QtWidgets.QWidget):
         self.ui.appButton1.clicked.connect(lambda : mainWindow.navigateTo(appIndex, appName))
         self.ui.appButton1.adjustSize()
         self.adjustSize()
-    # Needed for the widgets to appear; 
-    # supposedly because the main widget does not have an activated layout
+    # Needed for  widgets without activated layouts to appear; 
     def sizeHint(self):
-        #return QtCore.QSize(int(self.parent().width()), self.ui.appButton1.height())
         return self.ui.appButton1.size()
 
 

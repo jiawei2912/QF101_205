@@ -23,12 +23,12 @@ python main.py
 python -m PyQt5.uic.pyuic -x [FILENAME].ui -o [FILENAME].py
 ```
 ## 3) Create a .py file for the module in the AppModules folder. Alternatively, duplicate and modify an existing AppModules .py file. 
---> Ensure that the class of the new module contains a title:str and an order:int class attributes. The former defines the module's name of the main program and the letter defines its ordering priority on the main menu.
---> The class of the new module must also inherit QtWidgets.QWidget.
---> Ensure that this class is located in a .py file within the AppModules folder.
+- Ensure that the class of the new module contains a title:str and an order:int class attributes. The former defines the module's name of the main program and the letter defines its ordering priority on the main menu.
+- The class of the new module must also inherit QtWidgets.QWidget.
+- Ensure that this class is located in a .py file within the AppModules folder.
 ### If you duplicated an existing file: 
---> Modify _setUpButtonCallbacks(self) to connect the GUI buttons to various functions within the .py class.
---> Modify resetButtonClickedCallback(self) to set suitable default values for the GUI elements.
+- Modify _setUpButtonCallbacks(self) to connect the GUI buttons to various functions within the .py class.
+- Modify resetButtonClickedCallback(self) to set suitable default values for the GUI elements.
 
 
 # Etc

@@ -1,21 +1,9 @@
 from __future__ import annotations
 from typing import List
-from PyQt5 import QtWidgets
 from math import gcd
 import string
 
-# Todo: 1) Remove the use of the Class and the GUI
-#       2) You can use functions
-#       3) Simplify this into a standalone file
-
-# Each AppModule needs to have:
-#   title: display name of the module
-#   order: ordering priority; lower numbers will be displayed higher up
-
-    # Todo: 1) Make a CLI copy of this in 'Improved Implementation' that 'teaches' basic arithemtic operators
-    #       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of arithmetic operators
-
-    # 0 for encode, 1 for decode
+# 0 for encode, 1 for decode
 def _cipher(alphabet:str, key_a:int, key_b:int, plain_text, mode=0):
         # Input Validation
         if not len(alphabet) > 0:

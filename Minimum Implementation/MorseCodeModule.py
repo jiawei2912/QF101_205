@@ -1,6 +1,4 @@
 from __future__ import annotations
-from typing import List
-import string
 
 
 
@@ -45,9 +43,6 @@ NUMBER_MORSE_CODE = [
     '---..',
     '----.'
 ]
-
-    # Todo: 1) Make a CLI copy of this in 'Improved Implementation' that 'teaches' Dict
-    #       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of a Dict
 
 def encode(plainText):
     cipher_text = []
