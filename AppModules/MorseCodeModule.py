@@ -67,9 +67,6 @@ class MorseCodeModule(QtWidgets.QWidget):
         '----.'
     ]
 
-    # Todo: 1) Make a CLI copy of this in 'Improved Implementation' that 'teaches' Dict
-    #       2) Write a simplified CLI version of this in 'Minimum Implementation' that illustrates the use of a Dict
-
     def _encode(self):
         plain_text = self.ui.input_plaintext.toPlainText()
         cipher_text = []

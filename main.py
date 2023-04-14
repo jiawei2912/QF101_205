@@ -1,6 +1,6 @@
 from __future__ import annotations
 import sys, inspect
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 
 from PyUI import MainUI, LandingPageButton
 import AppModules
@@ -26,7 +26,7 @@ class MainWindow(QtWidgets.QMainWindow):
             lppButton.ui.appButton1.resize(largest_width, lppButton.height())
         # Slightly dangerous, as a module with a too long name might result in a window that
         # is too large and which cannot be shurnk
-        self.setMinimumWidth(int(largest_width*1.1))
+        self.setMinimumWidth(int(largest_width + 30))
             
         
     # def resizeEvent(self, event:QtGui.QResizeEvent) -> None:
